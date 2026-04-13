@@ -338,7 +338,6 @@
     }
 
     .card,
-    .quick-panel,
     .contacts__main,
     .contacts__side,
     .cta-card {
@@ -544,7 +543,7 @@
 
     .cta-grid {
       display: grid;
-      grid-template-columns: minmax(0, 1fr) 360px;
+      grid-template-columns: minmax(0, 1fr);
       gap: 18px;
     }
 
@@ -577,57 +576,6 @@
       margin: 0;
       color: var(--muted);
       line-height: 1.85;
-    }
-
-    .quick-panel {
-      padding: 28px;
-      border-radius: 30px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.05);
-      display: grid;
-      gap: 12px;
-      align-content: start;
-      transition: transform .35s var(--ease), border-color .35s ease;
-    }
-
-    .quick-panel:hover {
-      transform: translateY(-3px);
-      border-color: rgba(212, 234, 66, 0.24);
-    }
-
-    .quick-panel__title {
-      margin: 0 0 4px;
-      font-family: "Cormorant Garamond", serif;
-      font-size: 1.85rem;
-      line-height: 1;
-      font-weight: 600;
-    }
-
-    .quick-link {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 15px 18px;
-      border-radius: 18px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.04);
-      transition: transform .25s ease, border-color .25s ease;
-    }
-
-    .quick-link:hover {
-      transform: translateY(-2px);
-      border-color: rgba(212, 234, 66, 0.3);
-    }
-
-    .quick-link span {
-      color: var(--muted);
-      font-size: 0.92rem;
-    }
-
-    .quick-link strong {
-      font-size: 0.98rem;
-      font-weight: 700;
     }
 
     .contacts {
@@ -677,6 +625,7 @@
       background: rgba(212, 234, 66, 0.06);
       color: var(--text);
       line-height: 1.7;
+      margin-bottom: 18px;
     }
 
     .contacts__address strong {
@@ -686,6 +635,126 @@
       font-size: 0.92rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+    }
+
+    .hours-board {
+      position: relative;
+      overflow: hidden;
+      padding: 22px;
+      border-radius: 24px;
+      border: 1px solid rgba(212, 234, 66, 0.18);
+      background:
+        radial-gradient(circle at top right, rgba(212, 234, 66, 0.18), transparent 28%),
+        linear-gradient(135deg, rgba(212, 234, 66, 0.08), rgba(255, 255, 255, 0.03));
+    }
+
+    .hours-board::after {
+      content: "";
+      position: absolute;
+      right: -34px;
+      top: -34px;
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 234, 66, 0.16), transparent 70%);
+      filter: blur(6px);
+      animation: pulseGlow 8s ease-in-out infinite;
+    }
+
+    .hours-head {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hours-clock {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      flex: none;
+      position: relative;
+      border: 1px solid rgba(212, 234, 66, 0.34);
+      background: rgba(255, 255, 255, 0.04);
+      box-shadow: inset 0 0 0 6px rgba(255, 255, 255, 0.02);
+    }
+
+    .hours-clock::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 12px;
+      width: 2px;
+      height: 16px;
+      border-radius: 999px;
+      background: var(--accent);
+      transform: translateX(-50%);
+      transform-origin: bottom center;
+      animation: clockHour 12s linear infinite;
+    }
+
+    .hours-clock::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 18px;
+      width: 13px;
+      height: 2px;
+      border-radius: 999px;
+      background: #ffffff;
+      transform-origin: left center;
+      animation: clockMinute 6s linear infinite;
+    }
+
+    .hours-title {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.75rem;
+      line-height: 1;
+      margin: 0 0 4px;
+      font-weight: 600;
+    }
+
+    .hours-sub {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .hours-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hours-item {
+      padding: 16px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.05);
+      transition: transform .25s ease, border-color .25s ease;
+    }
+
+    .hours-item:hover {
+      transform: translateY(-2px);
+      border-color: rgba(212, 234, 66, 0.26);
+    }
+
+    .hours-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.86rem;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+
+    .hours-item strong {
+      display: block;
+      font-size: 1rem;
+      line-height: 1.45;
+      font-weight: 700;
     }
 
     .contact-list {
@@ -814,9 +883,26 @@
       }
     }
 
+    @keyframes clockHour {
+      from {
+        transform: translateX(-50%) rotate(0deg);
+      }
+      to {
+        transform: translateX(-50%) rotate(360deg);
+      }
+    }
+
+    @keyframes clockMinute {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
     @media (max-width: 1120px) {
       .hero__card,
-      .cta-grid,
       .contacts__box {
         grid-template-columns: 1fr;
       }
@@ -840,6 +926,10 @@
       .programs-shell::before,
       .programs-shell::after {
         display: none;
+      }
+
+      .hours-grid {
+        grid-template-columns: 1fr;
       }
 
       .mobile-actions {
@@ -903,7 +993,6 @@
         grid-auto-columns: 84%;
       }
 
-      .quick-link,
       .contact-item {
         flex-direction: column;
         align-items: flex-start;
@@ -983,7 +1072,7 @@
             <div class="actions">
               <a
                 class="btn btn--primary"
-                href="https://vk.ru/im/convo/-198159315?entrypoint=community_page&tab=all"
+                href="https://vk.com/zona_shpagata"
                 target="_blank"
                 rel="noopener"
               >
@@ -1095,7 +1184,7 @@
             <div class="actions">
               <a
                 class="btn btn--primary"
-                href="https://vk.ru/im/convo/-198159315?entrypoint=community_page&tab=all"
+                href="https://vk.com/zona_shpagata"
                 target="_blank"
                 rel="noopener"
               >
@@ -1130,6 +1219,33 @@
             <strong>Адрес</strong>
             Смоленск, Гагарина 22
           </div>
+
+          <div class="hours-board">
+            <div class="hours-head">
+              <div class="hours-clock"></div>
+              <div>
+                <div class="hours-title">Режим работы</div>
+                <div class="hours-sub">Мы на связи каждый день</div>
+              </div>
+            </div>
+
+            <div class="hours-grid">
+              <div class="hours-item">
+                <span>Понедельник - пятница</span>
+                <strong>11:00 - 21:00</strong>
+              </div>
+
+              <div class="hours-item">
+                <span>Суббота - воскресенье</span>
+                <strong>11:00 - 20:00</strong>
+              </div>
+
+              <div class="hours-item">
+                <span>Перерыв</span>
+                <strong>14:00 - 17:00</strong>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="contacts__side reveal">
@@ -1157,7 +1273,7 @@
               <span>Открыть</span>
             </a>
 
-            <a class="contact-item" href="https://vk.ru/im/convo/-198159315?entrypoint=community_page&tab=all" target="_blank" rel="noopener">
+            <a class="contact-item" href="https://vk.com/zona_shpagata" target="_blank" rel="noopener">
               <div>
                 <span>VK</span>
               </div>
@@ -1181,7 +1297,7 @@
 
     <a
       class="btn btn--primary"
-      href="https://vk.ru/im/convo/-198159315?entrypoint=community_page&tab=all"
+      href="https://vk.com/zona_shpagata"
       target="_blank"
       rel="noopener"
     >
