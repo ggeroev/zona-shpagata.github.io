@@ -17,18 +17,19 @@
   <style>
     :root {
       --bg: #17191b;
-      --bg-soft: #23272a;
       --line: rgba(255, 255, 255, 0.12);
       --text: #f4f1ea;
       --muted: #c8c7c1;
       --accent: #d4ea42;
       --accent-deep: #a6b82d;
       --panel: rgba(255, 255, 255, 0.05);
+      --panel-strong: rgba(255, 255, 255, 0.08);
       --shadow: 0 24px 70px rgba(0, 0, 0, 0.3);
       --container: 1160px;
       --radius-xl: 38px;
       --radius-lg: 28px;
       --radius-md: 22px;
+      --ease: cubic-bezier(.22, 1, .36, 1);
     }
 
     * {
@@ -48,6 +49,7 @@
         radial-gradient(circle at top right, rgba(255, 255, 255, 0.08), transparent 24%),
         linear-gradient(180deg, #676b70 0%, #34383c 18%, #1f2225 44%, #151719 100%);
       min-height: 100vh;
+      overflow-x: hidden;
     }
 
     body::before {
@@ -65,6 +67,20 @@
           transparent 110px
         );
       opacity: 0.45;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      top: -10vw;
+      right: -6vw;
+      width: 38vw;
+      height: 38vw;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(212, 234, 66, 0.16), transparent 68%);
+      filter: blur(34px);
+      animation: ambientFloat 14s ease-in-out infinite alternate;
     }
 
     a {
@@ -114,6 +130,7 @@
       font-size: 1.8rem;
       color: #151515;
       background: linear-gradient(135deg, #eef4b5, var(--accent-deep));
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.35);
     }
 
     .brand__title {
@@ -141,7 +158,7 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
       background: rgba(255, 255, 255, 0.03);
       color: var(--muted);
-      transition: 0.25s ease;
+      transition: transform .25s ease, border-color .25s ease, color .25s ease;
     }
 
     .nav a:hover {
@@ -191,6 +208,7 @@
       background: radial-gradient(circle, rgba(212, 234, 66, 0.22), transparent 62%);
       filter: blur(12px);
       z-index: -1;
+      animation: pulseGlow 7s ease-in-out infinite;
     }
 
     .badge {
@@ -203,6 +221,7 @@
       background: rgba(255, 255, 255, 0.05);
       color: var(--muted);
       font-size: 0.85rem;
+      animation: softFloat 5s ease-in-out infinite;
     }
 
     .badge::before {
@@ -271,11 +290,29 @@
       padding: 16px 24px;
       font: inherit;
       font-weight: 700;
-      transition: 0.25s ease;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -120%;
+      width: 48%;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.28), transparent);
+      transform: skewX(-18deg);
+      transition: left .75s var(--ease);
+    }
+
+    .btn:hover::after {
+      left: 135%;
     }
 
     .btn:hover {
@@ -300,12 +337,26 @@
       align-content: start;
     }
 
+    .card,
+    .quick-panel,
+    .contacts__main,
+    .contacts__side,
+    .cta-card {
+      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.16);
+    }
+
     .card {
       padding: 24px;
       border-radius: 24px;
       border: 1px solid rgba(255, 255, 255, 0.08);
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
       backdrop-filter: blur(18px);
+      transition: transform .35s var(--ease), border-color .35s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(212, 234, 66, 0.24);
     }
 
     .stat {
@@ -380,7 +431,7 @@
       color: var(--text);
       font-size: 1.2rem;
       cursor: pointer;
-      transition: 0.25s ease;
+      transition: transform .25s ease, border-color .25s ease, color .25s ease;
     }
 
     .program-nav button:hover {
@@ -452,12 +503,13 @@
       border: 1px solid rgba(255, 255, 255, 0.08);
       background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
       box-shadow: 0 14px 38px rgba(0, 0, 0, 0.16);
-      transition: 0.3s ease;
+      transition: transform .35s var(--ease), border-color .35s ease, box-shadow .35s ease;
     }
 
     .program:hover {
       transform: translateY(-4px);
       border-color: rgba(212, 234, 66, 0.35);
+      box-shadow: 0 20px 44px rgba(0, 0, 0, 0.22);
     }
 
     .program::after {
@@ -505,6 +557,12 @@
         linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
       display: grid;
       gap: 18px;
+      transition: transform .35s var(--ease), border-color .35s ease;
+    }
+
+    .cta-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(212, 234, 66, 0.24);
     }
 
     .cta-card h3 {
@@ -515,21 +573,61 @@
       font-weight: 600;
     }
 
-    .cta-card p,
-    .note p {
+    .cta-card p {
       margin: 0;
       color: var(--muted);
       line-height: 1.85;
     }
 
-    .note {
+    .quick-panel {
       padding: 28px;
       border-radius: 30px;
       border: 1px solid rgba(255, 255, 255, 0.08);
       background: rgba(255, 255, 255, 0.05);
       display: grid;
-      gap: 16px;
+      gap: 12px;
       align-content: start;
+      transition: transform .35s var(--ease), border-color .35s ease;
+    }
+
+    .quick-panel:hover {
+      transform: translateY(-3px);
+      border-color: rgba(212, 234, 66, 0.24);
+    }
+
+    .quick-panel__title {
+      margin: 0 0 4px;
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.85rem;
+      line-height: 1;
+      font-weight: 600;
+    }
+
+    .quick-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 15px 18px;
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+      transition: transform .25s ease, border-color .25s ease;
+    }
+
+    .quick-link:hover {
+      transform: translateY(-2px);
+      border-color: rgba(212, 234, 66, 0.3);
+    }
+
+    .quick-link span {
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .quick-link strong {
+      font-size: 0.98rem;
+      font-weight: 700;
     }
 
     .contacts {
@@ -538,7 +636,7 @@
 
     .contacts__box {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
+      grid-template-columns: 1.05fr 0.95fr;
       gap: 18px;
     }
 
@@ -548,6 +646,13 @@
       border-radius: var(--radius-lg);
       border: 1px solid rgba(255, 255, 255, 0.08);
       background: rgba(255, 255, 255, 0.04);
+      transition: transform .35s var(--ease), border-color .35s ease;
+    }
+
+    .contacts__main:hover,
+    .contacts__side:hover {
+      transform: translateY(-3px);
+      border-color: rgba(212, 234, 66, 0.24);
     }
 
     .contacts__main h3,
@@ -597,7 +702,7 @@
       border-radius: 18px;
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(255, 255, 255, 0.08);
-      transition: 0.25s ease;
+      transition: transform .25s ease, border-color .25s ease;
     }
 
     .contact-item:hover {
@@ -613,6 +718,32 @@
     .contact-item strong {
       font-size: 1rem;
       font-weight: 700;
+    }
+
+    .contact-item--phone {
+      min-height: 108px;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .contact-item--phone .phone-box {
+      display: grid;
+      gap: 6px;
+      justify-items: center;
+      width: 100%;
+    }
+
+    .contact-item--phone span {
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.8rem;
+    }
+
+    .contact-item--phone strong {
+      font-size: clamp(1.2rem, 2vw, 1.55rem);
+      line-height: 1.2;
+      text-align: center;
     }
 
     .mobile-actions {
@@ -633,6 +764,54 @@
 
     .mobile-actions .btn {
       width: 100%;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .8s var(--ease), transform .8s var(--ease);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .program.reveal:nth-child(1) { transition-delay: .04s; }
+    .program.reveal:nth-child(2) { transition-delay: .08s; }
+    .program.reveal:nth-child(3) { transition-delay: .12s; }
+    .program.reveal:nth-child(4) { transition-delay: .16s; }
+    .program.reveal:nth-child(5) { transition-delay: .2s; }
+    .program.reveal:nth-child(6) { transition-delay: .24s; }
+    .program.reveal:nth-child(7) { transition-delay: .28s; }
+
+    @keyframes ambientFloat {
+      0% {
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+      100% {
+        transform: translate3d(-3vw, 4vw, 0) scale(1.08);
+      }
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.9;
+      }
+      50% {
+        transform: scale(1.08);
+        opacity: 1;
+      }
+    }
+
+    @keyframes softFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-4px);
+      }
     }
 
     @media (max-width: 1120px) {
@@ -724,9 +903,33 @@
         grid-auto-columns: 84%;
       }
 
+      .quick-link,
       .contact-item {
         flex-direction: column;
         align-items: flex-start;
+      }
+
+      .contact-item--phone {
+        align-items: center;
+      }
+
+      .contact-item--phone .phone-box {
+        justify-items: center;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
       }
     }
   </style>
@@ -755,7 +958,7 @@
   <main>
     <section class="hero">
       <div class="wrap">
-        <div class="hero__card">
+        <div class="hero__card reveal">
           <div>
             <div class="badge">Пространство свободы и гибкости</div>
 
@@ -774,7 +977,7 @@
             <div class="meta">
               <span>7 групповых направлений</span>
               <span>Студия растяжки и фитнеса</span>
-              <span>Смоленск, Гагарина 22</span>
+              <span>Онлайн-запись доступна</span>
             </div>
 
             <div class="actions">
@@ -799,12 +1002,12 @@
           </div>
 
           <aside class="side">
-            <div class="card">
+            <div class="card reveal">
               <div class="stat">7</div>
               <div class="muted">направлений для гибкости, силы, красивой осанки и комфортной работы с телом.</div>
             </div>
 
-            <div class="card">
+            <div class="card reveal">
               <div class="muted">
                 Stretching, Aerostretching, здоровая спина, шпагатная растяжка, подкачка,
                 ягодицы и пресс.
@@ -822,7 +1025,7 @@
 
     <section id="programs">
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head reveal">
           <h2>Групповые программы</h2>
 
           <div class="program-nav">
@@ -833,43 +1036,43 @@
 
         <div class="programs-shell">
           <div class="programs" id="programsTrack">
-            <article class="program">
+            <article class="program reveal">
               <small>01</small>
               <h3>Stretching</h3>
               <p>Базовая растяжка для мягкого развития гибкости, пластики и красивой амплитуды движений.</p>
             </article>
 
-            <article class="program">
+            <article class="program reveal">
               <small>02</small>
               <h3>Aerostretching</h3>
               <p>Воздушная практика в гамаках для декомпрессии, вытяжения и новых ощущений в теле.</p>
             </article>
 
-            <article class="program">
+            <article class="program reveal">
               <small>03</small>
               <h3>Здоровая спина</h3>
               <p>Фокус на осанке, мобильности и снятии напряжения в спине, пояснице и шее.</p>
             </article>
 
-            <article class="program">
+            <article class="program reveal">
               <small>04</small>
               <h3>Шпагатная растяжка<br>продольный</h3>
               <p>Пошаговая работа над раскрытием таза и задней поверхности ног для уверенного прогресса.</p>
             </article>
 
-            <article class="program">
+            <article class="program reveal">
               <small>05</small>
               <h3>Шпагатная растяжка<br>поперечный</h3>
               <p>Грамотная подготовка к поперечному шпагату с вниманием к технике и ощущениям тела.</p>
             </article>
 
-            <article class="program">
+            <article class="program reveal">
               <small>06</small>
               <h3>Растяжка + Подкачка</h3>
               <p>Баланс гибкости и тонуса: растяжка в сочетании с укреплением всего тела.</p>
             </article>
 
-            <article class="program">
+            <article class="program reveal">
               <small>07</small>
               <h3>Ягодицы + Пресс</h3>
               <p>Акцент на сильный центр, подтянутый силуэт и красивую поддержку корпуса.</p>
@@ -882,7 +1085,7 @@
     <section id="schedule">
       <div class="wrap">
         <div class="cta-grid">
-          <div class="cta-card">
+          <div class="cta-card reveal">
             <div class="badge">Запись онлайн</div>
             <h3>Выберите удобный формат записи</h3>
             <p>
@@ -909,18 +1112,6 @@
               </a>
             </div>
           </div>
-
-          <aside class="note">
-            <strong>Ссылки</strong>
-            <p>
-              Онлайн-расписание:
-              <a href="https://n414085.yclients.com/company/392413/record-type?o=" target="_blank" rel="noopener">YCLIENTS</a>
-            </p>
-            <p>
-              Сообщения сообщества:
-              <a href="https://vk.ru/im/convo/-198159315?entrypoint=community_page&tab=all" target="_blank" rel="noopener">VK</a>
-            </p>
-          </aside>
         </div>
       </div>
     </section>
@@ -929,10 +1120,10 @@
   <footer class="contacts" id="contacts">
     <div class="wrap">
       <div class="contacts__box">
-        <div class="contacts__main">
+        <div class="contacts__main reveal">
           <h3>Контакты студии</h3>
           <p class="contacts__text">
-            Смоленск, Гагарина 22
+            Записывайтесь на занятия, уточняйте расписание и выбирайте удобный способ связи.
           </p>
 
           <div class="contacts__address">
@@ -941,16 +1132,15 @@
           </div>
         </div>
 
-        <div class="contacts__side">
+        <div class="contacts__side reveal">
           <h3>На связи</h3>
 
           <div class="contact-list">
-            <a class="contact-item" href="tel:+79586581267">
-              <div>
+            <a class="contact-item contact-item--phone" href="tel:+79586581267">
+              <div class="phone-box">
                 <span>Телефон</span>
-                <strong>    +7 958 658-12-67</strong>
+                <strong>+7 958 658-12-67</strong>
               </div>
-              <span>Позвонить</span>
             </a>
 
             <a class="contact-item" href="https://t.me/+79586581267" target="_blank" rel="noopener">
@@ -1005,23 +1195,42 @@
       const prev = document.getElementById("programPrev");
       const next = document.getElementById("programNext");
 
-      if (!track || !prev || !next) return;
+      if (track && prev && next) {
+        function getScrollAmount() {
+          const card = track.querySelector(".program");
+          if (!card) return 320;
+          const styles = window.getComputedStyle(track);
+          const gap = parseInt(styles.columnGap || styles.gap || 16, 10);
+          return card.getBoundingClientRect().width + gap;
+        }
 
-      function getScrollAmount() {
-        const card = track.querySelector(".program");
-        if (!card) return 320;
-        const styles = window.getComputedStyle(track);
-        const gap = parseInt(styles.columnGap || styles.gap || 16, 10);
-        return card.getBoundingClientRect().width + gap;
+        prev.addEventListener("click", function () {
+          track.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
+        });
+
+        next.addEventListener("click", function () {
+          track.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
+        });
       }
 
-      prev.addEventListener("click", function () {
-        track.scrollBy({ left: -getScrollAmount(), behavior: "smooth" });
-      });
+      const revealItems = document.querySelectorAll(".reveal");
 
-      next.addEventListener("click", function () {
-        track.scrollBy({ left: getScrollAmount(), behavior: "smooth" });
-      });
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.14
+        });
+
+        revealItems.forEach((item) => observer.observe(item));
+      } else {
+        revealItems.forEach((item) => item.classList.add("is-visible"));
+      }
     })();
   </script>
 </body>
