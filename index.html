@@ -88,17 +88,9 @@
       animation: ambientFloat 14s ease-in-out infinite alternate;
     }
 
-    body.modal-open {
-      overflow: hidden;
-    }
-
     a {
       color: inherit;
       text-decoration: none;
-    }
-
-    button {
-      font: inherit;
     }
 
     .sr-only {
@@ -1024,153 +1016,93 @@
       text-align: center;
     }
 
-    .footer-links {
-      margin-top: 16px;
-      display: grid;
-      gap: 10px;
-      position: relative;
-      z-index: 1;
+    .legal-links {
+      margin-top: 14px;
+      display: flex;
+      gap: 18px;
+      justify-content: flex-end;
+      padding-right: 6px;
     }
 
-    .footer-note {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: fit-content;
-      max-width: 100%;
-      padding: 0;
+    .legal-link {
+      appearance: none;
+      background: none;
       border: 0;
-      background: transparent;
-      color: rgba(255, 255, 255, 0.58);
+      padding: 0;
+      margin: 0;
+      font: inherit;
       font-size: 0.9rem;
-      line-height: 1.6;
-      letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.68);
+      text-decoration: underline;
+      text-underline-offset: 3px;
       cursor: pointer;
-      transition: color .2s ease, opacity .2s ease, transform .2s ease;
-      text-align: left;
+      transition: color .2s ease;
     }
 
-    .footer-note:hover {
+    .legal-link:hover {
       color: var(--text);
-      transform: translateY(-1px);
     }
 
-    .footer-note--link {
-      width: fit-content;
-    }
-
-    .modal {
+    .policy-modal {
       position: fixed;
       inset: 0;
-      z-index: 120;
-      display: grid;
+      z-index: 80;
+      display: none;
       place-items: center;
-      padding: 20px;
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-      transition: opacity .25s ease, visibility .25s ease;
+      padding: 18px;
     }
 
-    .modal.is-open {
-      opacity: 1;
-      visibility: visible;
-      pointer-events: auto;
+    .policy-modal.is-open {
+      display: grid;
     }
 
-    .modal__backdrop {
+    .policy-modal__backdrop {
       position: absolute;
       inset: 0;
-      background: rgba(6, 7, 8, 0.72);
-      backdrop-filter: blur(12px);
+      background: rgba(7, 8, 9, 0.72);
+      backdrop-filter: blur(4px);
     }
 
-    .modal__dialog {
+    .policy-modal__card {
       position: relative;
-      width: min(920px, 100%);
-      max-height: min(86vh, 900px);
-      overflow: hidden;
-      border-radius: 28px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: linear-gradient(180deg, rgba(24, 26, 28, 0.98), rgba(16, 18, 19, 0.98));
-      box-shadow: 0 28px 80px rgba(0, 0, 0, 0.45);
+      width: min(100%, 520px);
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background:
+        radial-gradient(circle at top right, rgba(212, 234, 66, 0.13), transparent 34%),
+        #1b1f22;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      padding: 22px 18px 18px;
       z-index: 1;
     }
 
-    .modal__header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 22px 24px 18px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    }
-
-    .modal__title {
-      margin: 0;
+    .policy-modal__title {
+      margin: 0 36px 10px 0;
       font-family: "Cormorant Garamond", serif;
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-size: 2rem;
       line-height: 1;
-      font-weight: 600;
     }
 
-    .modal__close {
-      width: 46px;
-      height: 46px;
+    .policy-modal__text {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.96rem;
+    }
+
+    .policy-modal__close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       background: rgba(255, 255, 255, 0.04);
       color: var(--text);
+      font-size: 1.1rem;
+      line-height: 1;
       cursor: pointer;
-      transition: transform .2s ease, border-color .2s ease, color .2s ease;
-      flex: none;
-    }
-
-    .modal__close:hover {
-      transform: rotate(90deg);
-      color: var(--accent);
-      border-color: rgba(212, 234, 66, 0.4);
-    }
-
-    .modal__body {
-      padding: 24px;
-      max-height: calc(86vh - 86px);
-      overflow-y: auto;
-      color: var(--muted);
-      line-height: 1.8;
-    }
-
-    .policy {
-      display: grid;
-      gap: 18px;
-    }
-
-    .policy p,
-    .policy li {
-      margin: 0;
-      font-size: 0.95rem;
-    }
-
-    .policy h4 {
-      margin: 0 0 8px;
-      color: var(--text);
-      font-size: 1.02rem;
-      line-height: 1.4;
-    }
-
-    .policy ul {
-      margin: 0;
-      padding-left: 18px;
-      display: grid;
-      gap: 8px;
-    }
-
-    .policy__intro {
-      padding: 16px 18px;
-      border-radius: 18px;
-      border: 1px solid rgba(212, 234, 66, 0.18);
-      background: rgba(212, 234, 66, 0.06);
-      color: #ece7dc;
     }
 
     .mobile-actions {
@@ -1250,6 +1182,11 @@
       .contacts__box,
       .cta-grid {
         grid-template-columns: 1fr;
+      }
+
+      .legal-links {
+        justify-content: center;
+        padding-right: 0;
       }
     }
 
@@ -1459,20 +1396,9 @@
         justify-items: center;
       }
 
-      .footer-note,
-      .footer-note--link {
-        width: 100%;
-        justify-content: flex-start;
-      }
-
-      .modal {
-        padding: 10px;
-      }
-
-      .modal__header,
-      .modal__body {
-        padding-left: 16px;
-        padding-right: 16px;
+      .legal-links {
+        flex-wrap: wrap;
+        gap: 10px 14px;
       }
     }
 
@@ -1786,15 +1712,27 @@
               <span>Открыть</span>
             </a>
           </div>
-
-          <div class="footer-links">
-            <button type="button" class="footer-note" data-modal-open="privacyModal">Политика конфиденциальности</button>
-            <a class="footer-note footer-note--link" href="https://ггероев.рф" target="_blank" rel="noopener">Разработка сайта</a>
-          </div>
         </div>
+      </div>
+
+      <div class="legal-links">
+        <a class="legal-link" href="#" id="privacyOpen">Политика конфиденциальности</a>
+        <a class="legal-link" href="https://ггероев.рф" target="_blank" rel="noopener">Разработка сайта</a>
       </div>
     </div>
   </footer>
+
+  <div class="policy-modal" id="policyModal" aria-hidden="true">
+    <div class="policy-modal__backdrop" data-policy-close></div>
+    <div class="policy-modal__card" role="dialog" aria-modal="true" aria-labelledby="policyTitle">
+      <button class="policy-modal__close" type="button" aria-label="Закрыть" data-policy-close>&times;</button>
+      <h3 class="policy-modal__title" id="policyTitle">Политика конфиденциальности</h3>
+      <p class="policy-modal__text">
+        На этом сайте персональные данные пользователей не собираются, не хранятся и не передаются третьим лицам.
+        Кнопки записи ведут только на внешние сервисы для связи и онлайн-записи.
+      </p>
+    </div>
+  </div>
 
   <div class="mobile-actions">
     <a class="btn btn--ghost" href="https://n414085.yclients.com/company/392413/record-type?o=" target="_blank" rel="noopener">
@@ -1803,97 +1741,6 @@
     <a class="btn btn--primary" href="https://vk.me/id616897086" target="_blank" rel="noopener">
       ПРОБНОЕ ЗАНЯТИЕ
     </a>
-  </div>
-
-  <div class="modal" id="privacyModal" aria-hidden="true">
-    <div class="modal__backdrop" data-modal-close></div>
-    <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="privacyTitle">
-      <div class="modal__header">
-        <h2 class="modal__title" id="privacyTitle">Политика конфиденциальности</h2>
-        <button type="button" class="modal__close" aria-label="Закрыть окно" data-modal-close>✕</button>
-      </div>
-      <div class="modal__body">
-        <div class="policy">
-          <div class="policy__intro">
-            Настоящая политика определяет порядок обработки персональных данных посетителей сайта студии ZONA ШПАГАТА. Документ подготовлен с учетом требований Федерального закона от 27.07.2006 № 152-ФЗ «О персональных данных» и описывает только фактическую работу данного сайта.
-          </div>
-
-          <section>
-            <h4>1. Общие положения</h4>
-            <p>1.1. Сайт носит информационный характер и предназначен для ознакомления посетителей с направлениями занятий, стоимостью, расписанием и способами связи со студией.</p>
-            <p>1.2. Оператором персональных данных является лицо, осуществляющее администрирование сайта и организацию записи в студию ZONA ШПАГАТА.</p>
-            <p>1.3. Использование сайта означает ознакомление пользователя с настоящей политикой.</p>
-          </section>
-
-          <section>
-            <h4>2. Какие данные могут обрабатываться</h4>
-            <ul>
-              <li>технические данные, автоматически передаваемые устройством пользователя при открытии страниц сайта: IP-адрес, тип браузера, сведения об устройстве, дата и время посещения, технические cookie-файлы, сведения о действиях на сайте;</li>
-              <li>данные, которые пользователь самостоятельно передает при переходе во внешние сервисы для связи или записи, включая номер телефона, имя, никнейм, иные сведения, введенные пользователем на стороне соответствующего сервиса.</li>
-            </ul>
-            <p>2.1. На данной странице отсутствуют собственные формы ввода персональных данных. Запись на занятия и переписка осуществляются через сторонние сервисы и внешние ссылки.</p>
-          </section>
-
-          <section>
-            <h4>3. Цели обработки данных</h4>
-            <ul>
-              <li>обеспечение корректной работы сайта;</li>
-              <li>повышение удобства использования сайта и его адаптация под устройство пользователя;</li>
-              <li>обеспечение безопасности сайта, предотвращение сбоев и злоупотреблений;</li>
-              <li>предоставление пользователю возможности перейти в сервисы записи и связи со студией.</li>
-            </ul>
-          </section>
-
-          <section>
-            <h4>4. Правовые основания обработки</h4>
-            <p>4.1. Обработка осуществляется на основании Федерального закона № 152-ФЗ, а также в случаях, когда пользователь самостоятельно совершает действия по использованию сайта и переходу во внешние сервисы.</p>
-            <p>4.2. Если пользователь передает персональные данные через сторонние сервисы, обработка таких данных также регулируется правилами и политиками соответствующих сервисов.</p>
-          </section>
-
-          <section>
-            <h4>5. Порядок и условия обработки</h4>
-            <ul>
-              <li>обработка персональных данных осуществляется законно и справедливо;</li>
-              <li>обрабатываются только данные, необходимые для указанных в политике целей;</li>
-              <li>не осуществляется сбор избыточных персональных данных через интерфейс данного сайта;</li>
-              <li>срок обработки технических данных определяется целями обеспечения работоспособности и безопасности сайта либо правилами хостинг-провайдера и используемой инфраструктуры.</li>
-            </ul>
-          </section>
-
-          <section>
-            <h4>6. Cookie-файлы и технические данные</h4>
-            <p>6.1. Сайт может использовать технические cookie-файлы и иные аналогичные технологии, необходимые для корректного отображения страниц, сохранения пользовательских настроек и анализа технической работоспособности ресурса.</p>
-            <p>6.2. Пользователь может ограничить использование cookie в настройках своего браузера. При этом отдельные элементы сайта могут работать некорректно.</p>
-          </section>
-
-          <section>
-            <h4>7. Передача данных третьим лицам</h4>
-            <p>7.1. Оператор не размещает на данной странице собственных форм сбора персональных данных. При нажатии на ссылки пользователь может быть перенаправлен в сторонние сервисы, включая VK, Telegram, MAX и YCLIENTS.</p>
-            <p>7.2. После перехода по внешней ссылке обработка данных может осуществляться владельцами соответствующих сервисов по их собственным правилам. Оператор рекомендует ознакомиться с их политиками конфиденциальности отдельно.</p>
-          </section>
-
-          <section>
-            <h4>8. Защита персональных данных</h4>
-            <p>8.1. Оператор принимает разумные организационные и технические меры для защиты персональных данных от неправомерного или случайного доступа, уничтожения, изменения, блокирования, копирования, распространения и иных неправомерных действий.</p>
-          </section>
-
-          <section>
-            <h4>9. Права пользователя</h4>
-            <ul>
-              <li>получать сведения об обработке своих персональных данных;</li>
-              <li>требовать уточнения, блокирования или уничтожения персональных данных, если они являются неполными, устаревшими, неточными, незаконно полученными или не являются необходимыми для заявленной цели обработки;</li>
-              <li>обращаться по вопросам обработки персональных данных по контактам, указанным на сайте.</li>
-            </ul>
-          </section>
-
-          <section>
-            <h4>10. Заключительные положения</h4>
-            <p>10.1. Оператор вправе вносить изменения в настоящую политику. Актуальная редакция размещается на сайте и доступна пользователю в настоящем окне.</p>
-            <p>10.2. Для более точного юридического оформления документа рекомендуется дополнительно указать полное наименование оператора, его реквизиты и электронную почту для обращений по вопросам персональных данных.</p>
-          </section>
-        </div>
-      </div>
-    </div>
   </div>
 
   <script>
@@ -1951,43 +1798,39 @@
         });
       }
 
-      const body = document.body;
-      const modal = document.getElementById("privacyModal");
-      const openers = document.querySelectorAll("[data-modal-open]");
-      const closers = document.querySelectorAll("[data-modal-close]");
-      let lastFocusedElement = null;
+      const privacyOpen = document.getElementById("privacyOpen");
+      const policyModal = document.getElementById("policyModal");
 
-      function openModal() {
-        if (!modal) return;
-        lastFocusedElement = document.activeElement;
-        modal.classList.add("is-open");
-        modal.setAttribute("aria-hidden", "false");
-        body.classList.add("modal-open");
-        const closeButton = modal.querySelector(".modal__close");
-        if (closeButton) closeButton.focus();
-      }
+      if (privacyOpen && policyModal) {
+        const closeNodes = policyModal.querySelectorAll("[data-policy-close]");
 
-      function closeModal() {
-        if (!modal) return;
-        modal.classList.remove("is-open");
-        modal.setAttribute("aria-hidden", "true");
-        body.classList.remove("modal-open");
-        if (lastFocusedElement) lastFocusedElement.focus();
-      }
-
-      openers.forEach((button) => {
-        button.addEventListener("click", openModal);
-      });
-
-      closers.forEach((element) => {
-        element.addEventListener("click", closeModal);
-      });
-
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && modal && modal.classList.contains("is-open")) {
-          closeModal();
+        function openPolicyModal() {
+          policyModal.classList.add("is-open");
+          policyModal.setAttribute("aria-hidden", "false");
+          document.body.style.overflow = "hidden";
         }
-      });
+
+        function closePolicyModal() {
+          policyModal.classList.remove("is-open");
+          policyModal.setAttribute("aria-hidden", "true");
+          document.body.style.overflow = "";
+        }
+
+        privacyOpen.addEventListener("click", (event) => {
+          event.preventDefault();
+          openPolicyModal();
+        });
+
+        closeNodes.forEach((node) => {
+          node.addEventListener("click", closePolicyModal);
+        });
+
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "Escape" && policyModal.classList.contains("is-open")) {
+            closePolicyModal();
+          }
+        });
+      }
     })();
   </script>
 </body>
