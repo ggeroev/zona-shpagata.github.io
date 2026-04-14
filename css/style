@@ -1,0 +1,198 @@
+.pricing {
+  padding-top: 8px;
+}
+
+.pricing-board {
+  padding: 34px;
+  border-radius: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    radial-gradient(circle at top right, rgba(212, 234, 66, 0.16), transparent 24%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.16);
+}
+
+.pricing-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.pricing-title {
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  line-height: 1;
+  font-weight: 600;
+}
+
+.pricing-subtitle {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 640px;
+}
+
+.pricing-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 10px 0 20px;
+}
+
+.pricing-chip {
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+}
+
+.pricing-chip--discount {
+  border-color: rgba(212, 234, 66, 0.35);
+  color: var(--accent);
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 14px;
+}
+
+.price-card {
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(19, 21, 23, 0.58);
+  padding: 18px;
+  transition: transform .25s ease, border-color .25s ease;
+}
+
+.price-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(212, 234, 66, 0.3);
+}
+
+.price-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(212, 234, 66, 0.35);
+}
+
+.price-card h3 {
+  margin: 0;
+  font-size: 1.7rem;
+  font-family: "Cormorant Garamond", serif;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.price-badge {
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  border: 1px solid rgba(212, 234, 66, 0.35);
+  color: var(--accent);
+  background: rgba(212, 234, 66, 0.08);
+}
+
+.price-head-row,
+.price-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  align-items: start;
+}
+
+.price-head-row {
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: rgba(255, 255, 255, 0.58);
+  margin-bottom: 8px;
+}
+
+.price-row {
+  padding: 8px 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.07);
+}
+
+.price-row:last-child {
+  border-bottom: 0;
+  padding-bottom: 2px;
+}
+
+.price-label {
+  color: #f2eee6;
+  line-height: 1.5;
+}
+
+.price-old {
+  color: #d5d4cf;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.price-new {
+  color: var(--accent);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.price-note {
+  margin-top: 10px;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.62);
+  line-height: 1.5;
+}
+
+.price-card--morning .price-new {
+  color: #f4f1ea;
+  opacity: 0.88;
+}
+
+@media (max-width: 860px) {
+  .pricing-board {
+    padding: 22px 16px;
+    border-radius: 24px;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .price-card {
+    padding: 14px;
+    border-radius: 18px;
+  }
+
+  .price-head-row {
+    font-size: 0.68rem;
+    gap: 8px;
+  }
+
+  .price-row {
+    gap: 8px;
+  }
+
+  .price-label {
+    font-size: 0.9rem;
+  }
+
+  .price-old,
+  .price-new {
+    font-size: 0.92rem;
+  }
+}
