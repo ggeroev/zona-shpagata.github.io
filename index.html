@@ -15,6 +15,7 @@
     rel="stylesheet"
   />
   <style>
+    /* все предыдущие стили (root, body, анимации и т.д.) оставлены без изменений */
     :root {
       --text: #f4f1ea;
       --muted: #c8c7c1;
@@ -790,14 +791,14 @@
     .program.reveal:nth-child(6) { transition-delay: .24s; }
     .program.reveal:nth-child(7) { transition-delay: .28s; }
 
-    /* дополнительные стили для футерных ссылок */
+    /* Стили для футерных ссылок и модального окна политики */
     .footer-links {
-      margin-top: 48px;
-      padding: 24px 0;
+      margin-top: 40px;
+      padding: 20px 0 8px;
       text-align: center;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: var(--muted);
-      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .footer-links a {
@@ -806,6 +807,7 @@
       text-decoration-thickness: 1px;
       text-decoration-color: rgba(212, 234, 66, 0.3);
       transition: text-decoration-color 0.2s ease, color 0.2s ease;
+      cursor: pointer;
     }
 
     .footer-links a:hover {
@@ -813,28 +815,81 @@
       text-decoration-color: var(--accent);
     }
 
-    .privacy-block {
-      margin-top: 40px;
-      padding: 24px;
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 24px;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      backdrop-filter: blur(4px);
-      scroll-margin-top: 20px;
+    /* Модальное окно политики */
+    .privacy-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
     }
 
-    .privacy-block h3 {
+    .privacy-modal.active {
+      display: flex;
+    }
+
+    .privacy-content {
+      max-width: 600px;
+      width: 100%;
+      background: #1a1c1e;
+      border-radius: 32px;
+      padding: 32px;
+      border: 1px solid rgba(212, 234, 66, 0.2);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+      color: var(--text);
+      position: relative;
+      animation: modalFadeIn 0.3s ease;
+    }
+
+    .privacy-content h3 {
       margin-top: 0;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
       font-family: "Cormorant Garamond", serif;
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: 600;
+      color: var(--accent);
     }
 
-    .privacy-block p {
-      margin: 8px 0;
+    .privacy-content p {
+      margin: 12px 0;
       line-height: 1.7;
       color: var(--muted);
+    }
+
+    .privacy-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-size: 28px;
+      line-height: 1;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .privacy-close:hover {
+      color: var(--text);
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    /* Адаптация для модалки на мобильных */
+    @media (max-width: 620px) {
+      .privacy-content {
+        padding: 24px 20px;
+        border-radius: 24px;
+      }
+      .privacy-close {
+        top: 16px;
+        right: 20px;
+      }
     }
 
     @keyframes ambientFloat {
@@ -1183,6 +1238,14 @@
             </a>
           </article>
         </div>
+
+        <!-- Ссылки под баннерами -->
+        <div class="footer-links reveal">
+          <div style="display: flex; justify-content: center; gap: 28px; flex-wrap: wrap;">
+            <a id="privacyTrigger">Политика конфиденциальности</a>
+            <a href="https://ггероев.рф" target="_blank" rel="noopener">Разработка сайта</a>
+          </div>
+        </div>
       </div>
     </section>
   </main>
@@ -1266,21 +1329,14 @@
     </div>
   </footer>
 
-  <!-- Блок политики конфиденциальности (скрыт до клика по ссылке, но виден при переходе по якорю) -->
-  <div class="wrap">
-    <div id="privacy" class="privacy-block">
+  <!-- Модальное окно с политикой конфиденциальности -->
+  <div class="privacy-modal" id="privacyModal">
+    <div class="privacy-content">
+      <span class="privacy-close" id="privacyClose">&times;</span>
       <h3>Политика конфиденциальности</h3>
       <p>Сайт не собирает и не хранит персональные данные пользователей.</p>
       <p>При переходе по внешним ссылкам обработка данных осуществляется на стороне соответствующих сервисов.</p>
       <p>Сайт может использовать технические cookies для корректной работы.</p>
-    </div>
-
-    <!-- Нижние ссылки: политика и разработчик -->
-    <div class="footer-links">
-      <div style="display: flex; justify-content: center; gap: 28px; flex-wrap: wrap;">
-        <a href="#privacy">Политика конфиденциальности</a>
-        <a href="https://ггероев.рф" target="_blank" rel="noopener">Разработка сайта</a>
-      </div>
     </div>
   </div>
 
@@ -1343,6 +1399,52 @@
         revealItems.forEach((item) => observer.observe(item));
       } else {
         revealItems.forEach((item) => item.classList.add("is-visible"));
+      }
+
+      // Работа с модальным окном политики
+      const modal = document.getElementById('privacyModal');
+      const trigger = document.getElementById('privacyTrigger');
+      const closeBtn = document.getElementById('privacyClose');
+
+      function openModal() {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      if (trigger) {
+        trigger.addEventListener('click', (e) => {
+          e.preventDefault();
+          openModal();
+        });
+      }
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', closeModal);
+      }
+
+      // Закрытие по клику на оверлей
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+
+      // Закрытие по Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+          closeModal();
+        }
+      });
+
+      // Если в URL был якорь #privacy (на всякий случай) – открываем модалку
+      if (window.location.hash === '#privacy') {
+        setTimeout(openModal, 100);
+        history.replaceState(null, null, ' ');
       }
     })();
   </script>
