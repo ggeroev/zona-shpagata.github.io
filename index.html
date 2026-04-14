@@ -15,7 +15,7 @@
     rel="stylesheet"
   />
   <style>
-    /* все предыдущие стили (root, body, анимации и т.д.) оставлены без изменений */
+    /* ===== БАЗОВЫЕ СТИЛИ (СОКРАЩЕНО ДЛЯ ЭКОНОМИИ МЕСТА, ПОЛНОСТЬЮ ИДЕНТИЧНЫ ПРЕДЫДУЩЕЙ ВЕРСИИ) ===== */
     :root {
       --text: #f4f1ea;
       --muted: #c8c7c1;
@@ -791,10 +791,10 @@
     .program.reveal:nth-child(6) { transition-delay: .24s; }
     .program.reveal:nth-child(7) { transition-delay: .28s; }
 
-    /* Стили для футерных ссылок и модального окна политики */
+    /* Футерные ссылки и модальное окно */
     .footer-links {
-      margin-top: 40px;
-      padding: 20px 0 8px;
+      margin-top: 30px;
+      padding: 24px 0 8px;
       text-align: center;
       font-size: 0.9rem;
       color: var(--muted);
@@ -815,7 +815,6 @@
       text-decoration-color: var(--accent);
     }
 
-    /* Модальное окно политики */
     .privacy-modal {
       display: none;
       position: fixed;
@@ -880,18 +879,7 @@
       to { opacity: 1; transform: scale(1); }
     }
 
-    /* Адаптация для модалки на мобильных */
-    @media (max-width: 620px) {
-      .privacy-content {
-        padding: 24px 20px;
-        border-radius: 24px;
-      }
-      .privacy-close {
-        top: 16px;
-        right: 20px;
-      }
-    }
-
+    /* Анимации */
     @keyframes ambientFloat {
       0% { transform: translate3d(0, 0, 0) scale(1); }
       100% { transform: translate3d(-3vw, 4vw, 0) scale(1.08); }
@@ -917,6 +905,7 @@
       to { transform: translate(-50%, -100%) rotate(360deg); }
     }
 
+    /* Адаптивность */
     @media (max-width: 1120px) {
       .contacts__box,
       .cta-grid {
@@ -1078,8 +1067,17 @@
       }
 
       .footer-links {
-        margin-top: 32px;
+        margin-top: 20px;
         padding: 20px 0;
+      }
+
+      .privacy-content {
+        padding: 24px 20px;
+        border-radius: 24px;
+      }
+      .privacy-close {
+        top: 16px;
+        right: 20px;
       }
     }
 
@@ -1238,14 +1236,6 @@
             </a>
           </article>
         </div>
-
-        <!-- Ссылки под баннерами -->
-        <div class="footer-links reveal">
-          <div style="display: flex; justify-content: center; gap: 28px; flex-wrap: wrap;">
-            <a id="privacyTrigger">Политика конфиденциальности</a>
-            <a href="https://ггероев.рф" target="_blank" rel="noopener">Разработка сайта</a>
-          </div>
-        </div>
       </div>
     </section>
   </main>
@@ -1326,10 +1316,18 @@
           </div>
         </div>
       </div>
+
+      <!-- Блок с политикой и разработчиком (теперь внизу, после контактов) -->
+      <div class="footer-links reveal">
+        <div style="display: flex; justify-content: center; gap: 28px; flex-wrap: wrap;">
+          <a id="privacyTrigger">Политика конфиденциальности</a>
+          <a href="https://ггероев.рф" target="_blank" rel="noopener">Разработка сайта</a>
+        </div>
+      </div>
     </div>
   </footer>
 
-  <!-- Модальное окно с политикой конфиденциальности -->
+  <!-- Модальное окно политики -->
   <div class="privacy-modal" id="privacyModal">
     <div class="privacy-content">
       <span class="privacy-close" id="privacyClose">&times;</span>
@@ -1401,7 +1399,7 @@
         revealItems.forEach((item) => item.classList.add("is-visible"));
       }
 
-      // Работа с модальным окном политики
+      // Модальное окно политики
       const modal = document.getElementById('privacyModal');
       const trigger = document.getElementById('privacyTrigger');
       const closeBtn = document.getElementById('privacyClose');
@@ -1427,21 +1425,19 @@
         closeBtn.addEventListener('click', closeModal);
       }
 
-      // Закрытие по клику на оверлей
       modal.addEventListener('click', (e) => {
         if (e.target === modal) {
           closeModal();
         }
       });
 
-      // Закрытие по Escape
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('active')) {
           closeModal();
         }
       });
 
-      // Если в URL был якорь #privacy (на всякий случай) – открываем модалку
+      // Если в URL был якорь #privacy – открываем
       if (window.location.hash === '#privacy') {
         setTimeout(openModal, 100);
         history.replaceState(null, null, ' ');
